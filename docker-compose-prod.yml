@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+
+  front-web-prod:
+    container_name: front-web-prod
+    build:
+      context: ./frontends/web
+      dockerfile: Dockerfile-prod
+    ports:
+      - '80:80'
