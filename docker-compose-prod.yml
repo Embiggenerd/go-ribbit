@@ -9,3 +9,11 @@ services:
       dockerfile: Dockerfile-prod
     ports:
       - '80:80'
+  
+  gateway-web-prod:
+    container_name: gateway-web-prod
+    build:
+      context: ./gateways/web
+      dockerfile: Dockerfile-prod
+    ports:
+      - '3001:3001'
