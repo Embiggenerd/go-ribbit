@@ -1,6 +1,9 @@
-version: '3.5'
+version: "3.5"
 
 services:
+  # frontend:web:port:3000
+  # gateway:web:port:3001
+  # services:users:port:3002
 
   front-web:
     container_name: front-web
@@ -8,10 +11,10 @@ services:
       context: ./frontends/web
       dockerfile: Dockerfile
     volumes:
-      - './frontends/web:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - "./frontends/web:/usr/src/app"
+      - "/usr/src/app/node_modules"
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
@@ -22,12 +25,34 @@ services:
       context: ./gateways/web
       dockerfile: Dockerfile
     volumes:
-      - './gateways/web:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - "./gateways/web:/usr/src/app"
+      - "/usr/src/app/node_modules"
     # run: npm install
     ports:
-      - '3001:3001'
+      - "3001:3001"
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
 
+  service-users:
+    build: ./services/users
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@database-main:5432/maindev?sslmode=disable
+    volumes:
+      - ./services/users:/go/src/users
+    depends_on:
+      - database-main
+    links:
+      - database-main
+
+  database-main:
+    build: ./databases/main-dev
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
