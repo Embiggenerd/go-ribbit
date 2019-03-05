@@ -15,26 +15,30 @@ type User struct {
 
 func getUser(w http.ResponseWriter, r *http.Request) *appError {
 	var user User
+
 	body, err := ioutil.ReadAll(r.Body)
 
-	fmt.Println("webgetUser", string(body))
-
 	err = json.Unmarshal(body, &user)
+
+	if err != nil {
+		return &appError{err.Error(), "Internal server error", 500}
+	}
 
 	fmt.Println("webgetusername", user)
 	foundUser, err := models.GetUserByUsername(user.Username)
 	fmt.Println(foundUser)
-	if err != nil {
 
-		return &appError{err, "Username not found", 400}
+	if err != nil {
+		return &appError{err.Error(), "Username not found", 400}
 	}
+
 	jsonUser, err := json.Marshal(foundUser)
+
+	if err != nil {
+		return &appError{err.Error(), "Internal server error", 500}
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonUser)
-	// if err != nil {
-	// 	fmt.Println("ErrNotNil", err)
-	// 	return &appError{err, ""}
-	// }
 	return nil
 }
