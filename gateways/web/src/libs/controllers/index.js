@@ -1,6 +1,7 @@
 const ping = require("./ping")
-
+const getUserByUsername = require("./getUserByUsername")
 module.exports = {
+  getUserByUsername,
   ping
 }
 

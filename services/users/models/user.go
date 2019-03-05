@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type User struct {
 	ID       int    `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
@@ -27,7 +29,9 @@ func GetUserByUsername(username string) (*User, error) {
 		WHERE username = $1;`
 	err := db.QueryRow(sqlUserQuery, username).Scan(&user.ID, &user.Username, &user.Password)
 	if err != nil {
+		fmt.Println("userQueryErr", err)
 		return nil, err
 	}
+
 	return user, nil
 }

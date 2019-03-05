@@ -78,16 +78,19 @@ class App {
         res,
         next
       )=> {
-        console.log("webError", err)
+        
+        res.status(err.response.data.code).json(err.response.data)
 
-        const detail =
-          typeof err.error === "undefined" ? err.detail : err.error.detail;
-        const status = err.statusCode || 500;
-        const message = {
-          status,
-          detail: detail
-        };
-        return res.status(status).render("error", message);
+
+        // const detail =
+        //   typeof err.error === "undefined" ? err.detail : err.error.detail;
+        // const status = err.statusCode || 500;
+        // const message = {
+        //   status,
+        //   detail: detail
+        // };
+        // res.status(status).json(message)
+        // return res.status(status).json(message);
       }
     );
   }

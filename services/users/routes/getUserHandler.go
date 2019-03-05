@@ -13,19 +13,28 @@ type User struct {
 	Password string
 }
 
-func getUser(w http.ResponseWriter, r *http.Request) {
+func getUser(w http.ResponseWriter, r *http.Request) *appError {
 	var user User
 	body, err := ioutil.ReadAll(r.Body)
 
-	// fmt.Println(string(body))
+	fmt.Println("webgetUser", string(body))
 
 	err = json.Unmarshal(body, &user)
 
+	fmt.Println("webgetusername", user)
 	foundUser, err := models.GetUserByUsername(user.Username)
 	fmt.Println(foundUser)
-
 	if err != nil {
-		fmt.Println(err)
-	}
 
+		return &appError{err, "Username not found", 400}
+	}
+	jsonUser, err := json.Marshal(foundUser)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonUser)
+	// if err != nil {
+	// 	fmt.Println("ErrNotNil", err)
+	// 	return &appError{err, ""}
+	// }
+	return nil
 }

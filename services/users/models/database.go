@@ -4,16 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
-
-	_ "github.com/lib/pq"
-)
-
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	dbname   = "maindev"
-	password = "postgres"
 )
 
 var db *sql.DB

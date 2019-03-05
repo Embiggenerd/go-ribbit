@@ -6,7 +6,6 @@ import (
 
 func Init() {
 	http.HandleFunc("/users/ping", ping)
-	http.HandleFunc("/users/getUser", getUser)
+	http.Handle("/users/getUserByUsername", appHandler(getUser))
 	http.ListenAndServe(":3002", nil)
-
 }
