@@ -1,31 +1,18 @@
-FROM node:carbon AS base
-# Create app directory
+FROM node:11-alpine
+
+# set working directory
 WORKDIR /usr/src/app
 
-# ---- Dependencies ----
-FROM base AS dependencies  
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-WORKDIR /user/src/app
-COPY package*.json ./
-# install app dependencies including 'devDependencies'
-RUN npm install
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-# ---- Copy Files/Build ----
-FROM dependencies AS build  
-WORKDIR /usr/src/app
-COPY . .
-# Build react/vue/angular bundle static files
-# RUN npm run build
 
-# --- Release with Alpine ----
-FROM node:11-alpine AS release  
-# Create app directory
-WORKDIR /user/src/app
-# optional
-# RUN npm -g install serve
-COPY --from=dependencies /user/src/app/package.json ./
-# Install app dependencies
+# copy package to be installed in compose file
+COPY package.json /usr/src/app/package.json
+
+# install dependencies
 RUN npm install --only=production
-COPY --from=build /usr/src/app ./
-# Run server
-CMD ["node", "index.js"]
+# RUN npm install react-scripts@1.1.1 -g --silent
+
+# start app
+CMD ["node", "."]

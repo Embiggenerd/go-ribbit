@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"time"
 )
 
 var db *sql.DB
@@ -13,20 +14,25 @@ func Init() {
 
 	psql := os.Getenv("DATABASE_URL")
 	fmt.Println("getenv", psql)
+	for i := 0; i < 10; i++ {
+		db, err = sql.Open("postgres", psql)
+		time.Sleep(time.Second * 1)
+	}
 
-	db, err = sql.Open("postgres", psql)
 	if err != nil {
+		fmt.Println(err)
+
 		panic(err)
 	}
 	err = db.Ping()
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("zzz", err)
 		panic(err)
 	}
 
 	// createTables()
 
-	fmt.Println("Successfully connected to main-dev")
+	fmt.Println("Successfully connected to main database")
 }
 
 // func createTables() {

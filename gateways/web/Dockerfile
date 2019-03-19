@@ -1,8 +1,6 @@
-FROM node:11
-
+FROM node:11-alpine
 
 # set working directory
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # add `/usr/src/app/node_modules/.bin` to $PATH

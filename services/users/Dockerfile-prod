@@ -1,0 +1,36 @@
+FROM golang:1.12-alpine3.9 AS base
+
+RUN apk update && apk add --no-cache git ca-certificates
+
+WORKDIR /go/src/users
+
+# Force the go compiler to use modules
+ENV GO111MODULE=on
+
+# We want to populate the module cache based on the go.{mod,sum} files.
+COPY go.mod .
+COPY go.sum .
+
+# download all the dependencies that are specified in 
+# the go.mod and go.sum file.
+RUN go mod download
+
+FROM base AS builder
+# Here we copy the rest of the source code
+COPY . .
+
+# And compile the project
+RUN CGO_ENABLED=0 go build \
+    -installsuffix 'static' \
+    -o /app .
+
+ENTRYPOINT ["/app"]
+
+# In this last stage, we start from a fresh scratch image,
+# then copy the binary and run it
+# FROM scratch
+
+# # Finally we copy the statically compiled Go binary.
+# COPY --from=builder /go/src/users/app /app
+# ENTRYPOINT ["/app"]
+

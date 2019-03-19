@@ -1,19 +1,70 @@
 version: '3.5'
 
 services:
+  # frontend-web-prod:port:80
+  # gateway-web-prod:port:3001
+  # services-users-prod:port:3002
+  # database-main-prod:port:5432
 
-  front-web-prod:
-    container_name: front-web-prod
+
+  front-web:
+    container_name: front-web
     build:
       context: ./frontends/web
       dockerfile: Dockerfile-prod
     ports:
       - '80:80'
   
-  gateway-web-prod:
-    container_name: gateway-web-prod
+  gateway-web:
+    container_name: gateway-web
     build:
       context: ./gateways/web
       dockerfile: Dockerfile-prod
+    volumes:
+      - "./gateways/web:/usr/src/app"
+      - "/usr/src/app/node_modules"
     ports:
       - '3001:3001'
+    environment:
+      - NODE_ENV=production
+      - CHOKIDAR_USEPOLLING=true
+
+  service-users:
+    build: 
+      context: ./services/users
+      dockerfile: Dockerfile-prod
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@database-main:5432/mainprod?sslmode=disable
+      # - DATABASE_URL=postgres://postgres:postgres@database-main-prod:5432/mainprod?sslmode=disable
+    volumes:
+      - ./services/users:/go/src/users
+    links:
+      - database-main
+
+    
+
+  database-main:
+    build: 
+      context: ./databases/main-prod
+      dockerfile: Dockerfile-prod
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    
+
+
+  # database-main-prod:
+  #   build: 
+  #     context: ./databases/main-prod
+  #     dockerfile: Dockerfile-prod
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   healthcheck:
+  #     test: exit 0

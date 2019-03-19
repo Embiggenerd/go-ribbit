@@ -4,6 +4,8 @@ services:
   # frontend-web:port:3000
   # gateway-web:port:3001
   # services-users:port:3002
+  # database-main:port:5432
+
 
   front-web:
     container_name: front-web
@@ -31,7 +33,6 @@ services:
     volumes:
       - "./gateways/web:/usr/src/app"
       - "/usr/src/app/node_modules"
-    # run: npm install
     ports:
       - "3001:3001"
     environment:
