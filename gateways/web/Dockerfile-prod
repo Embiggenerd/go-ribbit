@@ -12,7 +12,6 @@ COPY package.json /usr/src/app/package.json
 
 # install dependencies
 RUN npm install --only=production
-# RUN npm install react-scripts@1.1.1 -g --silent
 
 # start app
 CMD ["node", "."]

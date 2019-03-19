@@ -4,10 +4,10 @@ RUN apk update && apk add --no-cache git ca-certificates
 
 WORKDIR /go/src/users
 
-# Force the go compiler to use modules
+# force the go compiler to use modules
 ENV GO111MODULE=on
 
-# We want to populate the module cache based on the go.{mod,sum} files.
+#  populate the module cache based on the go.{mod,sum} files.
 COPY go.mod .
 COPY go.sum .
 
@@ -16,21 +16,14 @@ COPY go.sum .
 RUN go mod download
 
 FROM base AS builder
-# Here we copy the rest of the source code
+# copy the rest of the source code
 COPY . .
 
-# And compile the project
+# and compile the project with appropriate tags to 
+# turn off dynamic linking at runtime
 RUN CGO_ENABLED=0 go build \
     -installsuffix 'static' \
     -o /app .
 
 ENTRYPOINT ["/app"]
-
-# In this last stage, we start from a fresh scratch image,
-# then copy the binary and run it
-# FROM scratch
-
-# # Finally we copy the statically compiled Go binary.
-# COPY --from=builder /go/src/users/app /app
-# ENTRYPOINT ["/app"]
 
