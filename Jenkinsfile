@@ -4,6 +4,10 @@ pipeline {
         stage('build') {
             steps {
                 sh 'npm --version'
+            }
+        }
+        stage('test') {
+            steps {
                 sh 'node --version'
             }
         }
