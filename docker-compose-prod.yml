@@ -12,6 +12,8 @@ services:
     build:
       context: ./frontends/web
       dockerfile: Dockerfile-prod
+    volumes:
+      - ./frontends/web/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - '80:80'
   

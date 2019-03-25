@@ -1,12 +1,52 @@
 pipeline {
-    agent {
-        docker { image 'node:11-alpine' }
+  agent {
+    docker {
+      image 'cypress/base:10'
     }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
-            }
+  }
+  stages {
+    stage('build'){
+      steps {
+        echo "Building cypress on jenkins"
+        sh 'npm ci'
+        sh 'npm run cy:verify'
+      }
+    }
+    stage('development'){
+      when {
+        branch 'dev'
+      }
+      steps {
+        echo 'run integration tests'
+      }
+    }
+    stage('staging'){
+      when {
+        branch 'stage'
+      }
+      steps {
+        echo 'Deploying to staging server.'
+        sh 'ssh goribbit_stage "cd goribbit ;\
+              docker-compose --file docker-compose-prod.yml down --volume ;\ 
+              git checkout prod ;\
+              git pull ;\
+              docker-compose --file docker-compose-prod.yml up -V"'
+              
+        echo 'run cypress tests on staging server'
+        sh 'cypress run --env server=3.94.23.208'
+      }
+    }
+    stage('production'){
+      when {
+        branch 'prod'
+      }
+      steps {
+        {
+          echo 'deploy to production server'
+          echo 'run cypress tests'
+          sh 'cypress run --env server=AWS_PROD_EC2'
         }
+      }
     }
+  }
 }
