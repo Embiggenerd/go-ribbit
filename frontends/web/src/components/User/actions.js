@@ -6,12 +6,10 @@ export const auth = (e, name) => {
   e.preventDefault()
   return async dispatch => {
     try {
-      await axios.post('api/users/getUserByUsername', {
+      await axios.post('/api/users/getUserByUsername', {
         username: name
       });
-      console.log("authActionInvoked")
     } catch (e) {
-      console.log("authErr", e.response.data )
       dispatch({
         type: ERROR,
         error: e.response.data

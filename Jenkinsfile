@@ -27,7 +27,7 @@ pipeline {
       steps {
         echo 'Deploying to staging server.'
         sh 'ssh goribbit_stage "cd goribbit ;\
-              docker-compose --file docker-compose-prod.yml down --volume ;\ 
+              docker-compose --file docker-compose-prod.yml down  ;\ 
               git checkout prod ;\
               git pull ;\
               docker-compose --file docker-compose-prod.yml up -V"'

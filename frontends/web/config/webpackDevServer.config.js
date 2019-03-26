@@ -84,7 +84,12 @@ module.exports = function(proxy, allowedHost) {
     proxy: {
       // In development mode, we proxy all requests to "/api..." to our gateway
       // service.
-      '/api': 'http://gateway-web:3001'
+      '/api': {
+        target:'http://gateway-web:3001',
+        pathRewrite: {
+          '^/api': '',
+        },
+      }
     },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
