@@ -20,22 +20,22 @@ pipeline {
         echo 'run integration tests'
       }
     }
-    stage('staging'){
-      when {
-        branch 'stage'
-      }
-      steps {
-        echo 'Deploying to staging server.'
-        sh 'ssh goribbit_stage "cd goribbit ;\
-              docker-compose --file docker-compose-prod.yml down  ;\ 
-              git checkout prod ;\
-              git pull ;\
-              docker-compose --file docker-compose-prod.yml up -V"'
+    // stage('staging'){
+    //   when {
+    //     branch 'stage'
+    //   }
+    //   steps {
+    //     echo 'Deploying to staging server.'
+    //     sh 'ssh goribbit_stage "cd goribbit ;\
+    //           docker-compose --file docker-compose-prod.yml down  ;\ 
+    //           git checkout prod ;\
+    //           git pull ;\
+    //           docker-compose --file docker-compose-prod.yml up -V"'
               
-        echo 'run cypress tests on staging server'
-        sh 'cypress run --env server=34.195.46.184'
-      }
-    }
+    //     echo 'run cypress tests on staging server'
+    //     sh 'cypress run --env server=34.195.46.184'
+    //   }
+    // }
     // stage('production'){
     //   when {
     //     branch 'prod'
