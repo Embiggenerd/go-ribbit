@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
         echo 'Deploying to staging server.'
-        sh 'ssh goribbit_stage "pwd"'
+        sh 'ssh jenkins-stage "pwd"'
         // sh 'ssh goribbit_stage "cd goribbit" ;\
         //       docker-compose --file docker-compose-prod.yml down  ;\ 
         //       git checkout prod ;\
