@@ -8,8 +8,7 @@ pipeline {
     stage('build'){
       steps {
         echo "Building cypress on jenkins"
-        sh 'cd e2e'
-        sh 'npm ci'
+        sh 'cd e2e && npm ci'
         sh 'npm run cy:verify'
       }
     }
