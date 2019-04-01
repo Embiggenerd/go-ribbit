@@ -33,20 +33,20 @@ pipeline {
               docker-compose --file docker-compose-prod.yml up -V"'
               
         echo 'run cypress tests on staging server'
-        sh 'cypress run --env server=3.94.23.208'
+        sh 'cypress run --env server=34.195.46.184'
       }
     }
-    stage('production'){
-      when {
-        branch 'prod'
-      }
-      steps {
-        {
-          echo 'deploy to production server'
-          echo 'run cypress tests'
-          sh 'cypress run --env server=AWS_PROD_EC2'
-        }
-      }
-    }
+    // stage('production'){
+    //   when {
+    //     branch 'prod'
+    //   }
+    //   steps {
+    //     {
+    //       echo 'deploy to production server'
+    //       echo 'run cypress tests'
+    //       sh 'cypress run --env server=AWS_PROD_EC2'
+    //     }
+    //   }
+    // }
   }
 }
