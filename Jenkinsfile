@@ -10,8 +10,9 @@ pipeline {
         echo "Building cypress on jenkins"
         dir("e2e"){
           sh 'npm ci'
-          sh 'npm run cy:verify'
+          
         }
+        sh 'npm run cy:verify'
         
       }
     }
