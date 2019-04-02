@@ -29,10 +29,11 @@ pipeline {
       }
       steps {
         echo 'Deploying to staging server.'
-        sh 'pwd'
-        sh 'whoami'
-        sh 'cat /root/.ssh/config'
-
+        container('blue-ocean-goribbit'){
+          sh 'pwd'
+          sh 'whoami'
+          sh 'cat /root/.ssh/config'
+        }
         // sh 'su - jenkins && ssh jenkins-stage "pwd"'
         // sh 'ssh goribbit_stage "cd goribbit" ;\
         //       docker-compose --file docker-compose-prod.yml down  ;\ 
