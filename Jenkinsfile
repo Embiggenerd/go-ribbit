@@ -27,8 +27,6 @@ pipeline {
       when {
         branch 'stage'
       }
-      agent none
-
       steps {
         echo 'Deploying to staging server.'
         sh 'pwd'
