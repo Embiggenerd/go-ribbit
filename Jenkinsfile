@@ -12,7 +12,6 @@ pipeline {
           sh 'npm ci'
           sh 'npm run cy:verify'
         }
-        
       }
     }
     stage('development'){
