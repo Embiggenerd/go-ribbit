@@ -29,7 +29,7 @@ pipeline {
       steps {
         echo 'Deploying to staging server.'
         sh 'pwd'
-        sh 'whoami"'
+        sh 'whoami'
 
         // sh 'su - jenkins && ssh jenkins-stage "pwd"'
         // sh 'ssh goribbit_stage "cd goribbit" ;\
