@@ -9,6 +9,7 @@ pipeline {
       steps {
         echo "Building cypress on jenkins"
         dir("e2e"){
+          sh 'pwd'
           sh 'npm ci'
           sh 'npm run cy:verify'
         }
