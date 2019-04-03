@@ -84,26 +84,27 @@ pipeline {
       when {
         branch 'stage'
       }
-      agent {
-        docker {
-          image 'cypress/base:10'
-        }
-      }      
+      // agent {
+      //   docker {
+      //     image 'cypress/base:10'
+      //   }
+      // }      
       steps {
-        
-        dir("e2e"){
-          echo "building cypress"
-          sh 'pwd'
-          sh 'npm ci'
-          sh 'npm run cy:verify'
-          sh 'cat /root/.ssh/config'
-          checkout scm
           echo 'Deploying to staging server.'
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
-        }
-        
+          agent {
+            docker {
+              image 'cypress/base:10'
+            }
+          }
+          dir("e2e"){
+          sh 'pwd'
+          sh 'npm ci'
+          sh 'npm run cy:verify'
+          sh 'cat /root/.ssh/config'
+        }      
         // sh 'su - jenkins && ssh jenkins-stage "pwd"'
         // sh 'ssh goribbit_stage "cd goribbit" ;\
         //       docker-compose --file docker-compose-prod.yml down  ;\ 
@@ -115,6 +116,7 @@ pipeline {
         // sh 'cypress run --env server=34.195.46.184'
       }
     }
+    
     // stage('production'){
     //   when {
     //     branch 'prod'
