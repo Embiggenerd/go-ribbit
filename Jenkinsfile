@@ -88,7 +88,7 @@ pipeline {
   //   docker {
   //     image 'cypress/base:10'
   //   }
-      
+    //}      
       steps {
         
         dir("e2e"){
@@ -102,6 +102,7 @@ pipeline {
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
+        }
         
         // sh 'su - jenkins && ssh jenkins-stage "pwd"'
         // sh 'ssh goribbit_stage "cd goribbit" ;\
