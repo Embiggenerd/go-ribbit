@@ -4,7 +4,7 @@ pipeline {
   //   docker {
   //     image 'cypress/base:10'
   //   }
-  }
+  
   stages {
     stage('build'){
       steps {
