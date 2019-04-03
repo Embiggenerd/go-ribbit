@@ -97,7 +97,7 @@ pipeline {
           sh 'npm ci'
           sh 'npm run cy:verify'
           sh 'cat /root/.ssh/config'
-
+          checkout scm
           echo 'Deploying to staging server.'
           sh 'pwd'
           sh 'whoami'
