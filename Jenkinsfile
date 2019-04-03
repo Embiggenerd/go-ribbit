@@ -84,11 +84,11 @@ pipeline {
       when {
         branch 'stage'
       }
-      // agent {
-  //   docker {
-  //     image 'cypress/base:10'
-  //   }
-    //}      
+      agent {
+        docker {
+          image 'cypress/base:10'
+        }
+      }      
       steps {
         
         dir("e2e"){
