@@ -94,11 +94,13 @@ pipeline {
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
-          agent {
+      }
+      agent {
             docker {
               image 'cypress/base:10'
             }
           }
+      steps{
           dir("e2e"){
           sh 'pwd'
           sh 'npm ci'
