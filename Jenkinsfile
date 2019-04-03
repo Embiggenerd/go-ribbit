@@ -1,8 +1,9 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:10'
-    }
+  agent any
+  // agent {
+  //   docker {
+  //     image 'cypress/base:10'
+  //   }
   }
   stages {
     stage('build'){
@@ -27,7 +28,7 @@ pipeline {
       when {
         branch 'stage'
       }
-      checkout scm
+      
       steps {
         echo 'Deploying to staging server.'
         sh 'pwd'
