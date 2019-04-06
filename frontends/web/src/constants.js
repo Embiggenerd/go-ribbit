@@ -9,3 +9,5 @@ export const PASSWORD = 'password'
 export const ERROR = "error"
 
 export const NOMATCH = "no match"
+
+export const LOADING = "loading"

@@ -4,7 +4,7 @@ const logger = require("morgan")
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 
-const Routes = require( "./src/libs/routes")
+const Routes = require( "./src/libs/user/routes")
 
 class App {
 
@@ -17,7 +17,7 @@ class App {
     this.configureParsers();
     this.configureSession();
     this.mountRoutes();
-    this.setup404();
+    // this.setup404();
     this.setupErrors();
   }
 
@@ -58,17 +58,17 @@ class App {
     );
   }
 
-  setup404(){
-    this.express.use(
-      (req, res, next) => {
-        console.log("webSetup404Error")
-        const err = new Error("Not Found");
-        err.statusCode = 404;
-        err.detail = err.toString();
-        next(err);
-      }
-    );
-  }
+  // setup404(){
+  //   this.express.use(
+  //     (err, req, res, next) => {
+  //       console.log("webSetup404Error")
+  //       const err = new Error("Not Found");
+  //       err.statusCode = 404;
+  //       err.detail = err.toString();
+  //       next(err);
+  //     }
+  //   );
+  // }
 
   setupErrors(){
     this.express.use(
