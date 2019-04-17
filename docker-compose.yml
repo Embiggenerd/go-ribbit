@@ -45,6 +45,7 @@ services:
       - "3002:3002"
     environment:
       - DATABASE_URL=postgres://postgres:postgres@database-main:5432/maindev?sslmode=disable
+      - JWT_SECRET=changeme
     volumes:
       - ./services/users:/go/src/users
     depends_on:

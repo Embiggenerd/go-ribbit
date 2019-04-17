@@ -30,6 +30,7 @@ func Init() {
 		panic(err)
 	}
 
+	fmt.Println("zzz", db)
 	// createTables()
 
 	fmt.Println("Successfully connected to main database")

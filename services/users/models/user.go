@@ -1,37 +1,64 @@
 package models
 
-import "fmt"
+import (
+	"fmt"
+	authutil "users/authUtil"
+	"users/models/modelTypes"
+)
 
-type User struct {
-	ID       int    `json:"id,omitempty"`
-	Username string `json:"username,omitempty"`
-	Password string `json:"password,omitempty"`
-}
-
-func GetUserById(id int) (*User, error) {
-	user := new(User)
+// GetUsernameByID retrieves only username and id by id
+func GetUsernameByID(id int) (*modelTypes.User, error) {
+	user := new(modelTypes.User)
 
 	sqlUserQuery := `
-		SELECT * FROM users
+		SELECT username FROM users
 		WHERE id = $1;`
 	err := db.QueryRow(sqlUserQuery, id).Scan(&user.Username, &user.Password)
 	if err != nil {
 		return nil, err
 	}
 	return user, nil
+
 }
 
-func GetUserByUsername(username string) (*User, error) {
-	user := new(User)
-
-	sqlUserQuery := `
-		SELECT * FROM users
+// UserExists takes a username and outputs a bool if in database
+func UserExists(u string) (bool, error) {
+	var count int
+	sqlQuery := `
+		SELECT COUNT(*)
+		FROM  users
 		WHERE username = $1;`
-	err := db.QueryRow(sqlUserQuery, username).Scan(&user.ID, &user.Username, &user.Password)
+
+	err := db.QueryRow(sqlQuery, u).Scan(&count)
 	if err != nil {
-		fmt.Println("userQueryErr", err)
+		return false, err
+	}
+	fmt.Println("countz", count)
+	if count > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+// CreateUser uses SaveUser and UserExists to create a new user
+func CreateUser(u *modelTypes.User) (*modelTypes.User, error) {
+	hashedPassword, err := authutil.HashPassword(u.Password)
+
+	if err != nil {
 		return nil, err
 	}
 
-	return user, nil
+	savedUser, err := SaveUser(u.Username, hashedPassword)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return savedUser, nil
+
 }
+
+// LoginUser
+
+// LogoutUser

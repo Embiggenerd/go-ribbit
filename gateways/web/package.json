@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test":"mocha '**/tests/**/*.test.js'"
+    "test": "mocha '**/tests/**/*.test.js'"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "faker": "^4.1.0",
     "mocha": "^6.0.2",
     "supertest": "^3.4.2"
   },

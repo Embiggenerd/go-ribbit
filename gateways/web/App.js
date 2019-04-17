@@ -1,13 +1,12 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const logger = require("morgan")
-const cookieParser = require("cookie-parser")
-const session = require("express-session")
+const express = require('express');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
-const Routes = require( "./src/libs/user/routes")
+const Routes = require('./src/libs/user/routes');
 
 class App {
-
   constructor() {
     this.routes = new Routes();
 
@@ -22,36 +21,34 @@ class App {
   }
 
   configureHeaders() {
-    this.express.use(
-      (req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-        res.header("Access-Control-Allow-Headers", "Content-Type");
-        next();
-      }
-    );
+    this.express.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      next();
+    });
   }
 
   configureLogger() {
-    if (process.env.NODE_ENV !== "test") {
-      this.express.use(logger("dev"));
+    if (process.env.NODE_ENV !== 'test') {
+      this.express.use(logger('dev'));
     }
   }
 
-  mountRoutes(){
+  mountRoutes() {
     this.routes.route(this.express);
   }
 
-  configureParsers(){
+  configureParsers() {
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
     this.express.use(cookieParser());
   }
 
-  configureSession(){
+  configureSession() {
     this.express.use(
       session({
-        secret: process.env.SECRET_KEY || "changeme",
+        secret: process.env.SECRET_KEY || 'changeme',
         resave: false,
         saveUninitialized: true
       })
@@ -70,30 +67,21 @@ class App {
   //   );
   // }
 
-  setupErrors(){
-    this.express.use(
-      (
-        err,
-        req,
-        res,
-        next
-      )=> {
-        
-        res.status(err.response.data.code).json(err.response.data)
+  setupErrors() {
+    this.express.use((err, req, res, next) => {
+      res.status(err.response.data.code).json(err.response.data);
 
-
-        // const detail =
-        //   typeof err.error === "undefined" ? err.detail : err.error.detail;
-        // const status = err.statusCode || 500;
-        // const message = {
-        //   status,
-        //   detail: detail
-        // };
-        // res.status(status).json(message)
-        // return res.status(status).json(message);
-      }
-    );
+      // const detail =
+      //   typeof err.error === "undefined" ? err.detail : err.error.detail;
+      // const status = err.statusCode || 500;
+      // const message = {
+      //   status,
+      //   detail: detail
+      // };
+      // res.status(status).json(message)
+      // return res.status(status).json(message);
+    });
   }
 }
 
-module.exports = new App().express
+module.exports = new App().express;

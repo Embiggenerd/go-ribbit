@@ -1,8 +1,10 @@
 const ping = require("./ping")
 const getUserByUsername = require("./getUserByUsername")
+const registerUser = require("./registerUser")
 module.exports = {
   getUserByUsername,
-  ping
+  ping,
+  registerUser
 }
 
 // export const allLocations = require("./allLocations")

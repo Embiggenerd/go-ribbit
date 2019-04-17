@@ -1,6 +1,7 @@
 const {
   ping,
   getUserByUsername,
+  registerUser,
   // allLocations,
   // getLogin,
   // postLogin,
@@ -18,6 +19,8 @@ module.exports = class Routes {
     App.route("/web/ping").get(ping);
 
     App.route("/users/getUserByUsername").post(getUserByUsername)
+    App.route("/users/register").post(registerUser)
+
 
     // App.route("/").get(ensureAuthenticated, allLocations);
 
