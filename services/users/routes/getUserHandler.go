@@ -23,7 +23,6 @@ func getUser(w http.ResponseWriter, r *http.Request) *appError {
 	if err != nil {
 		return &appError{err.Error(), "Internal server error", 500}
 	}
-
 	fmt.Println("webgetusername", user)
 	foundUser, err := models.GetUserByUsername(user.Username)
 	fmt.Println(foundUser)

@@ -16,7 +16,7 @@ describe('user: controller: registerUser ', function() {
     const username = internet.userName();
     const password = internet.password();
     it('should register a new user', function(done) {
-      this.timeout(500);
+      this.timeout(2000);
       chai
         .request(App)
         .post('/users/register')
@@ -27,13 +27,15 @@ describe('user: controller: registerUser ', function() {
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.eql(200);
-          res.type.should.eql('text/html');
-          res.body.should.include.keys('status', 'token');
-          res.body.status.should.eql('success');
+          res.type.should.eql('application/json');
+          res.body.should.include.keys('token');
+          console.log("fff",res.body.token)
           done();
         });
     });
     it('Should receive error if user already exists', function(done) {
+      this.timeout(2000);
+
       chai
         .request(App)
         .post('/users/register')

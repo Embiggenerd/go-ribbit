@@ -36,22 +36,22 @@ func registerUser(w http.ResponseWriter, r *http.Request) *appError {
 		return &appError{err.Error(), "Internal server error", 500}
 	}
 
-	response := struct {
-		status string
-		token  string
-	}{
-		"success",
-		token.Token,
-	}
+	// response := struct {
+	// 	hithere string
+	// 	token   string
+	// }{
+	// 	"success",
+	// 	token.Token,
+	// }
 
-	jsonToken, err := json.Marshal(response)
+	jsonToken, err := json.Marshal(token)
 	if err != nil {
 		return &appError{err.Error(), "Internal server error", 500}
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonToken)
-	fmt.Println("rezponse", response)
+	fmt.Println("rezponse", jsonToken)
 
 	return nil
 }
