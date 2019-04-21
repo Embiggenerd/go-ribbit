@@ -3,7 +3,7 @@ package authutil_test
 import (
 	"reflect"
 	"testing"
-	"users/authUtil"
+	authutil "users/authUtil"
 	"users/models/modelTypes"
 )
 
@@ -23,15 +23,18 @@ func TestEncodeToken(t *testing.T) {
 }
 
 func TestDecodeToken(t *testing.T) {
-	userID := 3332
+	var userID int = 33
 	user := modelTypes.User{
 		ID: userID,
 	}
 	token, err := authutil.EncodeToken(&user)
 	authutil.DecodeToken(token, func(c *authutil.UserClaims, e error) {
-		if c.CustomClaims["userid"] != userID {
+		idData := c.CustomClaims["userid"].(float64)
+		converted := int(idData)
+		if converted != userID {
 			t.Errorf("Claims are incorrect, got: %d, wanted: %d.", c.CustomClaims["userid"], userID)
 		}
+
 	})
 	if err != nil {
 		t.Error(err)

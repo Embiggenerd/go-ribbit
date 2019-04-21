@@ -16,11 +16,14 @@ func Init() {
 	fmt.Println("getenv", psql)
 	for i := 0; i < 10; i++ {
 		db, err = sql.Open("postgres", psql)
+		if db != nil {
+			break
+		}
 		time.Sleep(time.Second * 1)
 	}
 
 	if err != nil {
-		fmt.Println(err)
+		// fmt.Println(err)
 
 		panic(err)
 	}

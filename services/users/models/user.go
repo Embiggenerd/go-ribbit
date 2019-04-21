@@ -1,7 +1,7 @@
 package models
 
 import (
-	"fmt"
+	// "fmt"
 	authutil "users/authUtil"
 	"users/models/modelTypes"
 )
@@ -11,14 +11,14 @@ func GetUsernameByID(id int) (*modelTypes.User, error) {
 	user := new(modelTypes.User)
 
 	sqlUserQuery := `
-		SELECT username FROM users
+		SELECT username 
+		FROM users
 		WHERE id = $1;`
-	err := db.QueryRow(sqlUserQuery, id).Scan(&user.Username, &user.Password)
+	err := db.QueryRow(sqlUserQuery, id).Scan(&user.Username)
 	if err != nil {
 		return nil, err
 	}
 	return user, nil
-
 }
 
 // UserExists takes a username and outputs a bool if in database
@@ -33,7 +33,7 @@ func UserExists(u string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	fmt.Println("countz", count)
+	// fmt.Println("countz", count)
 	if count > 0 {
 		return true, nil
 	}

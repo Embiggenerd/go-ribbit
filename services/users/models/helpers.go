@@ -31,9 +31,9 @@ func GetUserByUsername(username string) (*modelTypes.User, error) {
 	user := new(modelTypes.User)
 
 	sqlUserQuery := `
-		SELECT id, username FROM users
+		SELECT id, username, password FROM users
 		WHERE username = $1;`
-	err := db.QueryRow(sqlUserQuery, username).Scan(&user.ID, &user.Username)
+	err := db.QueryRow(sqlUserQuery, username).Scan(&user.ID, &user.Username, &user.Password)
 	if err != nil {
 		fmt.Println("userQueryErr", err)
 		return nil, err

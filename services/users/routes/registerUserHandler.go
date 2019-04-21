@@ -2,7 +2,7 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"io/ioutil"
 	"net/http"
 	authutil "users/authUtil"
@@ -25,7 +25,7 @@ func registerUser(w http.ResponseWriter, r *http.Request) *appError {
 	if exists {
 		return &appError{"Username unavailable", "Username taken", 400}
 	}
-	fmt.Println("userExists", exists, err)
+	// fmt.Println("userExists", exists, err)
 	createdUser, err := models.CreateUser(&user)
 	if err != nil {
 		return &appError{err.Error(), "Internal server error", 500}
@@ -36,14 +36,6 @@ func registerUser(w http.ResponseWriter, r *http.Request) *appError {
 		return &appError{err.Error(), "Internal server error", 500}
 	}
 
-	// response := struct {
-	// 	hithere string
-	// 	token   string
-	// }{
-	// 	"success",
-	// 	token.Token,
-	// }
-
 	jsonToken, err := json.Marshal(token)
 	if err != nil {
 		return &appError{err.Error(), "Internal server error", 500}
@@ -51,7 +43,7 @@ func registerUser(w http.ResponseWriter, r *http.Request) *appError {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonToken)
-	fmt.Println("rezponse", jsonToken)
+	// fmt.Println("rezponse", jsonToken)
 
 	return nil
 }

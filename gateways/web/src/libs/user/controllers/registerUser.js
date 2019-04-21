@@ -13,13 +13,8 @@ module.exports = async (req, res, next) => {
   let response
   try {
     response = await axios.post("http://service-users:3002/users/register", user)
-    // console.log("registerUserRez",response)
     res.json(response.data)
   } catch(e){
-    console.log("errz",e.response.data.code,e.response.data);
-    
-
     next(e)
   }
-  // console.log("qqq",response.data)
 }

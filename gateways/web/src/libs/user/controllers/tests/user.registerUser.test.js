@@ -1,55 +1,43 @@
 const chai = require('chai');
-const chaiHTTP = require('chai-http');
-chai.use(chaiHTTP);
-const should = chai.should();
+const request = require('supertest');
+const expect = chai.expect;
 const { internet } = require('faker');
 
 const App = require('../../../../../App');
 
 describe('user: controller: registerUser ', function() {
-  it('app module exists', done => {
-    should.exist(App);
-    done();
+  it('app module exists', () => {
+    expect(App).to.exist;
   });
 
   describe('POST /users/register', () => {
     const username = internet.userName();
     const password = internet.password();
-    it('should register a new user', function(done) {
-      this.timeout(2000);
-      chai
-        .request(App)
+    
+    it('Should register a new user', async () => {
+      await request(App)
         .post('/users/register')
-        .send({
-          username,
-          password
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.eql(200);
-          res.type.should.eql('application/json');
-          res.body.should.include.keys('token');
-          console.log("fff",res.body.token)
-          done();
+        .send({ username, password })
+        .set('Content-Type', 'application/json')
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.have.property('token');
+          expect(res.body.token).to.be.a('string');
         });
     });
-    it('Should receive error if user already exists', function(done) {
-      this.timeout(2000);
-
-      chai
-        .request(App)
+    
+    it('Should receive error if user already exists', async () => {
+      await request(App)
         .post('/users/register')
-        .send({
-          username,
-          password
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.eql(400);
-          // res.type.should.eql("application/json");
-          // res.body.should.include.keys("status", "token");
-          // res.body.status.should.eql("success");
-          done();
+        .send({ username, password })
+        .set('Content-Type', 'application/json')
+        .expect(400)
+        .expect(res => {
+          expect(res.body).to.deep.equal({
+            error: 'Username unavailable',
+            message: 'Username taken',
+            code: 400
+          });
         });
     });
   });

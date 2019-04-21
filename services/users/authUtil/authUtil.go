@@ -2,7 +2,6 @@ package authutil
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"time"
 	myTypes "users/models/modelTypes"
@@ -28,6 +27,12 @@ type UserClaims struct {
 // CallbackType is the type for the callback passed to DecodeToken
 type CallbackType func(*UserClaims, error)
 
+type appError struct {
+	Error   string `json:"error,omitempty"`
+	Message string `json:"message,omitempty"`
+	Code    int    `json:"code,omitempty"`
+}
+
 // EncodeToken takes data and makes a token with it
 func EncodeToken(u *myTypes.User) (*JwtToken, error) {
 
@@ -40,8 +45,11 @@ func EncodeToken(u *myTypes.User) (*JwtToken, error) {
 			"userid":   u.ID,
 		},
 	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
 	tokenString, err := token.SignedString([]byte(SECRET))
+
 	if err != nil {
 		return nil, err
 	}
@@ -52,19 +60,25 @@ func EncodeToken(u *myTypes.User) (*JwtToken, error) {
 // with null, payload if validated, and error when not validated.
 func DecodeToken(t *JwtToken, c CallbackType) {
 	tokenData, err := jwt.ParseWithClaims(t.Token, &UserClaims{}, func(t *jwt.Token) (interface{}, error) {
+
 		if jwt.SigningMethodHS256 != t.Method {
 			return nil, errors.New("Invalid signing algorithm")
 		}
 		return []byte(SECRET), nil
 	})
+
 	if err != nil {
 		c(nil, errors.New("Invalid token"))
+		return
 	}
-	fmt.Println("claimz", tokenData.Claims)
+	// fmt.Println("claimz", tokenData.Claims)
 	claimData := tokenData.Claims.(*UserClaims)
+
 	if claimData.StandardClaims.ExpiresAt < time.Now().Unix() {
 		c(nil, errors.New("Expired Token"))
+		return
 	}
+
 	c(claimData, nil)
 }
 
