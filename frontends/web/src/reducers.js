@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { auth, userForm } from './components/User/reducers';
 import { errorReducer } from './components/Modals/reducers';
-import { loadingReducer } from './components/LoadingScreen/reducers'
+import { loadingReducer, loadUser } from './components/LoadingScreen/reducers'
 
 export default combineReducers({
   auth,
   userForm,
   error: errorReducer,
-  loading: loadingReducer
+  loading: loadingReducer,
 });
 
 /**
@@ -22,6 +22,10 @@ export default combineReducers({
       code: '',
       message: ''
     },
-    loading: true
+    loading: true,
+    user: {
+      name: '',
+      id: number
+    }
   }
  */

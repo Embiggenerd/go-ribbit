@@ -14,7 +14,7 @@ class App {
     this.configureHeaders();
     this.configureLogger();
     this.configureParsers();
-    this.configureSession();
+    // this.configureSession();
     this.mountRoutes();
     // this.setup404();
     this.setupErrors();
