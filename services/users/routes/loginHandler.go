@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	authutil "users/authUtil"
@@ -16,6 +17,8 @@ func loginUser(w http.ResponseWriter, r *http.Request) *appError {
 	var user modelTypes.User
 
 	body, err := ioutil.ReadAll(r.Body)
+
+	fmt.Println("login body", body)
 
 	err = json.Unmarshal(body, &user)
 

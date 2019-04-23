@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import User from '../User';
+import Logout from "../Logout"
+import Login from "../Login"
 import { ErrorModal } from '../Modals';
 import LoadingScreen from '../LoadingScreen'
 import {NoMatch} from "../NoMatch"
@@ -27,7 +29,7 @@ function AppRouter() {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/about">About</Link>
+                  <Link to="/logout">Logout</Link>
                 </li>
                 <li>
                   <Link to="/users">Users</Link>
@@ -41,6 +43,8 @@ function AppRouter() {
               <Route path="/" exact component={Index} />
               <Route path="/about/" component={About} />
               <Route path="/users/" component={User} />
+              <Route path="/logout" component={Logout} />
+              <Route path ="/login" component={Login} />
               <Route component={NoMatch} />
             </Switch>
           </div>

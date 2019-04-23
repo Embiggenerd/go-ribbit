@@ -24,6 +24,34 @@ export const auth = (e, name) => {
   };
 };
 
+export const registerUser = (e, username, password) => {
+  e.preventDefault()
+  return async dispatch => {
+    try {
+      await axios.post('/api/users/register', {
+        username,
+        password
+      });
+      dispatch({
+        type: AUTH,
+        auth: true
+      });
+    } catch (e) {
+      dispatch({
+        type: ERROR,
+        error: e.response.data
+      })
+    }
+    // } finally {
+    //   dispatch({
+    //     type: AUTH,
+    //     auth: true
+    //   });
+    // }
+  };
+};
+
+
 export const handleFieldChange = (e, key, field) => {
   return dispatch => {
     if (!field) {

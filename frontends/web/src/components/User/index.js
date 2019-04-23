@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { USERNAME, USER_FORM, PASSWORD } from '../../constants';
-import { handleFieldChange, auth } from './actions';
+import { handleFieldChange, auth, registerUser } from './actions';
 
-const User = ({ authCall, handleFieldChange, userForm }) => {
+const User = ({ registerUser, handleFieldChange, userForm }) => {
   return (
     <form
       className="user_form"
       // data-test-id={`${whichForm}-form`}
-      onSubmit={e => authCall(e, userForm['username'])}
+      onSubmit={e => registerUser(e, userForm['username'], userForm['password'])}
     >
       <label className="label">Username</label>
       <input
@@ -51,7 +51,7 @@ const mapStateToProps = ({ auth, userForm }) => ({ auth, userForm });
 
 const mapDispatchToProps = {
   handleFieldChange,
-  authCall: auth
+  registerUser
 };
 
 export default withRouter(

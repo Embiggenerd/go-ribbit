@@ -71,6 +71,16 @@ class App {
     this.express.use((err, req, res, next) => {
       res.status(err.response.data.code).json(err.response.data);
 
+      /**
+       * Shape of errors gotten back from backend, sent to controller,
+       * passed here by middleware:
+        * err.response.data: {
+        *  code: int,
+        *  error: string,
+        *  message: string
+        * }
+       */
+
       // const detail =
       //   typeof err.error === "undefined" ? err.detail : err.error.detail;
       // const status = err.statusCode || 500;
