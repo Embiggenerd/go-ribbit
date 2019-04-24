@@ -96,7 +96,7 @@ pipeline {
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
-          sh 'ssh -tt -v jenkins-stage'
+          sh 'ssh -tt -v jenkins-stage "whoami"'
           sh 'pwd'
           sh 'whoami' 
       
