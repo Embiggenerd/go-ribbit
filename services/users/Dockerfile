@@ -7,6 +7,7 @@ WORKDIR /go/src/users
 
 # force the go compiler to use modules
 ENV GO111MODULE=on
+ENV CGO_ENABLED=0
 
 #  populate the module cache based on the go.{mod,sum} files.
 COPY go.mod .

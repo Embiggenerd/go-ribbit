@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { AUTH, ERROR } from '../../constants'
 
+
 export const auth = (e, name) => {
   e.preventDefault()
   return async dispatch => {
@@ -22,6 +23,35 @@ export const auth = (e, name) => {
     }
   };
 };
+
+export const registerUser = (e, username, password, history) => {
+  e.preventDefault()
+  return async dispatch => {
+    try {
+      await axios.post('/api/users/register', {
+        username,
+        password
+      });
+      dispatch({
+        type: AUTH,
+        auth: true
+      });
+      history.push('/')
+    } catch (e) {
+      dispatch({
+        type: ERROR,
+        error: e.response.data
+      })
+    }
+    // } finally {
+    //   dispatch({
+    //     type: AUTH,
+    //     auth: true
+    //   });
+    // }
+  };
+};
+
 
 export const handleFieldChange = (e, key, field) => {
   return dispatch => {

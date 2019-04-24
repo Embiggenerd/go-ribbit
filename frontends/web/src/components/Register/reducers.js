@@ -8,8 +8,16 @@ export const auth = (state = false, {type, auth}) => {
       return state
   }
 }
-
-export const passwordFormReducer = (state = '', { key, text }) => {
+/**
+ * Each compositional reducer simply takes a key and text from the 
+ * invoking reducer's payload, and uses the key as type, and the text
+ * as value. The key is passed from the action creator. We could reducer
+ * code further and simply use one compositional reducer with a larger 
+ * switch, but that may become confusing.
+ * @param {*} state 
+ * @param {*} param1 
+ */
+const passwordFormReducer = (state = '', { key, text }) => {
   switch (key) {
     case PASSWORD:
       return text;
@@ -27,6 +35,12 @@ const usernameFormReducer = (state = '', { key, text }) => {
   }
 };
 
+/**
+ * We are using reducer composition to control the username
+ * and password fields of user form
+ * @param {*} state 
+ * @param {*} param1 
+ */
 export const userForm = (
   state = { username: '', password: '' },
   { type, text, key }

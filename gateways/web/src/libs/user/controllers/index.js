@@ -1,9 +1,17 @@
-const ping = require("./ping")
-const getUserByUsername = require("./getUserByUsername")
+const ping = require('./ping');
+const getUserByUsername = require('./getUserByUsername');
+const registerUser = require('./registerUser');
+const authReq = require('./authReq');
+const logoutUser = require('./logout');
+const loginUser = require("./login")
 module.exports = {
   getUserByUsername,
-  ping
-}
+  ping,
+  registerUser,
+  authReq,
+  logoutUser,
+  loginUser,
+};
 
 // export const allLocations = require("./allLocations")
 
@@ -20,4 +28,3 @@ module.exports = {
 // export const logout = require("./logout")
 
 // export const locationsByuser = require("./locationsByUser")
-

@@ -6,9 +6,10 @@ module.exports = async (req, res, next) => {
   let response
   try {
     response = await axios.post("http://service-users:3002/users/getUserByUsername", user)
-    // res.json(response.data)
+    res.json(response.data)
+
   } catch(e){
     next(e)
   }
-  console.log(response)
+  console.log("rrrrr",response.data)
 }

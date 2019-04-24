@@ -1,14 +1,10 @@
 const {
   ping,
   getUserByUsername,
-  // allLocations,
-  // getLogin,
-  // postLogin,
-  // getRegister,
-  // postRegister,
-  // logout,
-  // locationsByuser,
-  // addLocation
+  registerUser,
+  authReq,
+  logoutUser,
+  loginUser,
 } = require("../controllers");
 
 // const { ensureAuthenticated, loginRedirect } = require("../helpers");
@@ -16,8 +12,12 @@ const {
 module.exports = class Routes {
   route(App) {
     App.route("/web/ping").get(ping);
-
+    App.route("/users/authReq").get(authReq)
     App.route("/users/getUserByUsername").post(getUserByUsername)
+    App.route("/users/register").post(registerUser)
+    App.route("/users/logout").get(logoutUser)
+    App.route("/users/login").post(loginUser)
+
 
     // App.route("/").get(ensureAuthenticated, allLocations);
 
