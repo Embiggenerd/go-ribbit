@@ -78,6 +78,7 @@ pipeline {
       steps {
         echo 'run integration/unit tests'
         sh 'cat /root/.ssh/config'
+        echo 'reading jenkins file from dev branch'
       }
     }
     stage('deploy to stage'){
