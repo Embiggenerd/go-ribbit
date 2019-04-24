@@ -69,7 +69,7 @@ pipeline {
   //     image 'cypress/base:10'
   //   }
   
-  stages {
+  stages { 
     
     stage('development'){
       when {
@@ -77,7 +77,8 @@ pipeline {
       }
       steps {
         echo 'run integration/unit tests'
-        sh 'cat /root/.ssh/config'
+        sh 'pwd'
+        sh 'ls -la'
         echo 'reading jenkins file from dev branch'
       }
     }
@@ -113,6 +114,9 @@ pipeline {
 
     }
     stage('staging test'){
+      when {
+        branch 'stage'
+      }
       agent {
             docker {
               image 'cypress/base:10'
