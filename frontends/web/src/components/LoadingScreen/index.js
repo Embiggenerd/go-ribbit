@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { authUser } from './actions';
 import LoaderImage from './loaderImage'
 
+// Makes a call to authenticate user. If authenticated, displays children passed
+// to it in App component
 class LoadingScreen extends Component {
   componentDidMount() {
     this.props.authUser();
@@ -10,10 +12,8 @@ class LoadingScreen extends Component {
   render() {
     const { loading, children } = this.props;
     if (loading) {
-      // return <h1 data-test-id="loading-screen">Loading...</h1>;
       return (
         <div className="loader-image">
-          {/* return{' '} */}
           <LoaderImage/>
         </div>
       );
