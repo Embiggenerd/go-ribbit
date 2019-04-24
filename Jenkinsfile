@@ -80,7 +80,7 @@ pipeline {
         sh 'cat /root/.ssh/config'
       }
     }
-    stage('staging deploy'){
+    stage('deploy to stage'){
       when {
         branch 'stage'
       }
@@ -94,6 +94,9 @@ pipeline {
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
+          sh 'ssh jenkins-stage'
+          sh 'pwd'
+          sh 'whoami'
       
       
         // sh 'su - jenkins && ssh jenkins-stage "pwd"'
@@ -120,6 +123,7 @@ pipeline {
           sh 'npm ci'
           sh 'npm run cy:verify'
           sh 'cat /root/.ssh/config'
+          
         }      
     }
     
