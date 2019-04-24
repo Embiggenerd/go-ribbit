@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { auth, userForm } from './components/User/reducers';
+import { auth, userForm } from './components/Register/reducers';
 import { errorReducer } from './components/Modals/reducers';
 import { loadingReducer, loadUser } from './components/LoadingScreen/reducers'
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import User from '../User';
+import Register from '../Register';
 import Logout from '../Logout';
 import Login from '../Login';
 import Index from '../Index'
@@ -15,25 +15,9 @@ function AppRouter() {
       <div>
         <Router>
           <div>
-            {/* <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/logout">Logout</Link>
-                </li>
-                <li>
-                  <Link to="/users">Users</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </nav> */}
             <Switch>
               <Route path="/" exact component={Index} />
-              <Route path="/users/" component={User} />
+              <Route path="/register/" component={Register} />
               <Route path="/logout" component={Logout} />
               <Route path="/login" component={Login} />
               <Route component={NoMatch} />

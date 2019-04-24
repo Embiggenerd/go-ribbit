@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { USERNAME, USER_FORM, PASSWORD } from '../../constants';
 import { handleFieldChange, auth, loginUser } from './actions';
 
-const Login = ({ loginUser, handleFieldChange, userForm }) => {
+const Login = ({ loginUser, handleFieldChange, userForm, history }) => {
   return (
     <form
       className="user_form"
       // data-test-id={`${whichForm}-form`}
-      onSubmit={e => loginUser(e, userForm['username'], userForm['password'])}
+      onSubmit={e => loginUser(e, userForm['username'], userForm['password'], history)}
     >
       <label className="label">Username</label>
       <input

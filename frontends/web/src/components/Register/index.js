@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { USERNAME, USER_FORM, PASSWORD } from '../../constants';
-import { handleFieldChange, auth, registerUser } from './actions';
+import { handleFieldChange, registerUser } from './actions';
 
-const User = ({ registerUser, handleFieldChange, userForm }) => {
+const Register = ({ registerUser, handleFieldChange, userForm, history }) => {
   return (
     <form
       className="user_form"
       // data-test-id={`${whichForm}-form`}
-      onSubmit={e => registerUser(e, userForm['username'], userForm['password'])}
+      onSubmit={e => registerUser(e, userForm['username'], userForm['password'], history)}
     >
       <label className="label">Username</label>
       <input
@@ -58,5 +58,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(User)
+  )(Register)
 );

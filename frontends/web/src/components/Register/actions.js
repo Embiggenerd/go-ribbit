@@ -24,7 +24,7 @@ export const auth = (e, name) => {
   };
 };
 
-export const registerUser = (e, username, password) => {
+export const registerUser = (e, username, password, history) => {
   e.preventDefault()
   return async dispatch => {
     try {
@@ -36,6 +36,7 @@ export const registerUser = (e, username, password) => {
         type: AUTH,
         auth: true
       });
+      history.push('/')
     } catch (e) {
       dispatch({
         type: ERROR,
