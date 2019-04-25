@@ -123,7 +123,7 @@ pipeline {
             }
           }
       steps{
-          dir("e2e"){
+          dir("e2e/cypress"){
           sh 'npm ci'
           sh 'npm run cy:verify'
           echo 'runing cypress tests'
