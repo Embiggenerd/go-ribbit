@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:verify": "cypress verify",
-    "cy:run": "cypress run"
+    "cy:run:stage": "cypress run --env server=http://34.195.46.184"
   },
   "author": "",
   "license": "ISC",
