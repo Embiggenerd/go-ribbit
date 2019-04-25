@@ -10,5 +10,5 @@ docker-compose docker-compose-prod.yml down --volumes
 git checkout stage
 git pull origin stage
 
-# start updated app
+# start updated app 
 docker-compose --file docker-compose-prod.yml up -V -d --build
