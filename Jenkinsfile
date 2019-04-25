@@ -127,7 +127,7 @@ pipeline {
           sh 'npm ci'
           sh 'npm run cy:verify'
           echo 'runing cypress tests'
-          sh 'cypress run --env server=AWS_PROD_EC2'
+          sh 'npm run cy:run'
         }      
     }
     
