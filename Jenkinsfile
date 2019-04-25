@@ -96,7 +96,7 @@ pipeline {
           sh 'pwd'
           sh 'whoami'
           sh 'cat /root/.ssh/config'
-          sh 'ssh -tt -v jenkins-stage "whoami"'
+          sh 'ssh -tt -v jenkins-stage "sh go-ribbit/stage_reup.sh"'
           sh 'pwd'
           sh 'whoami' 
       
@@ -127,7 +127,6 @@ pipeline {
           sh 'pwd'
           sh 'npm ci'
           sh 'npm run cy:verify'
-          sh 'cat /root/.ssh/config'
           
         }      
     }
