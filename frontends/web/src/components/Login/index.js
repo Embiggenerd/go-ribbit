@@ -22,7 +22,7 @@ const Login = ({ loginUser, handleFieldChange, userForm, history }) => {
         onChange={e => {
           handleFieldChange(e, USERNAME, USER_FORM);
         }}
-        // value={values.username}
+        // value={values.username} 
       />
       <label className="label">Password</label>
       <input

@@ -127,7 +127,7 @@ pipeline {
           sh 'npm ci'
           sh 'npm run cy:verify'
           echo 'runing cypress tests'
-          sh 'npm run cy:run'
+          sh 'npm run cy:run:stage'
         }      
     }
     
