@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# make the working directory the location of the script
+cd "$(dirname "$0")"
 
 # stop current prod process
 docker-compose --file ~/go-ribbit/docker-compose-prod.yml down --volumes
