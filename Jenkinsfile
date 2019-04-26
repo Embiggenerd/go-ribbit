@@ -69,7 +69,7 @@ pipeline {
   //     image 'cypress/base:10'
   //   }
   
-  stages { 
+  stages {  
     
     stage('development'){
       when {
