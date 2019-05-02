@@ -12,9 +12,9 @@ import './App.css';
 function AppRouter() {
   return (
     <LoadingScreen>
-      <div>
+      <div className="router_wrapper">
         <Router>
-          <div>
+          <div className="non-modal_wrapper">
             <Switch>
               <Route path="/" exact component={Index} />
               <Route path="/register/" component={Register} />
