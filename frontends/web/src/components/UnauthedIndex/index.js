@@ -29,7 +29,7 @@ const UnauthedIndex = () => {
       <div className="bar_and_frog">
         <div className="bar" />
 
-        <img src={unauthedImage}/>
+        <img className="front_page_frog" src={unauthedImage} />
       </div>
       <div className="hype">
         <h3>* Score Reading Points</h3>

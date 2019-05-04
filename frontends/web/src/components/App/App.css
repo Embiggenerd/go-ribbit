@@ -1,3 +1,5 @@
+@import "../Login/loginStyles.css";
+
 /* :root {
   --common--desktop--display: flex;
   --common--desktop--flex-direction: column;
@@ -526,20 +528,23 @@
   color: white;
 }
 
-.login_layout {
+/* .login_layout {
   background: #e6ecf0;
   height: 100%;
   width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 450px;
+  min-width: 350px;
 }
 
 .form_box {
-  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
   height: 350px;
-  max-width: 835px;
+  max-width: 635px;
+  min-width: 100px;
   background: white;
   border: 1px solid #d0d0d0;
   padding: 2%;
@@ -548,12 +553,22 @@
   justify-content: space-evenly;
 }
 
+.form_box--wrapper{
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.form_box--buffer {
+  width: 14px;
+}
+
 .login_form {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-}
+} */
 
 html,
 body,
@@ -564,26 +579,26 @@ body,
   width: 100%;
 }
 
-.login_nav {
+/* .login_nav {
   background: white;
-  /* width: 100%; */
   height: 50px;
   min-width: 600px;
-  margin-bottom: 20px;
+  margin-bottom: 13px;
   border-bottom: 1px solid #d0d0d0;
   display: flex;
 }
 
 .small_frog {
-  /* position: fixed; */
   margin: 10px;
-  /* margin-left: -250px;
-  margin-right: -850; */
+ 
 }
 
 .small_frog--link {
-  /* margin-left:-190px;
-  margin-right: -400px; */
+  margin: 10px;
+}
+
+.small_frog--link:hover { 
+  border-bottom: 2px solid limegreen;
 }
 
 .login_form--input {
@@ -596,6 +611,13 @@ body,
   background-color: rgb(232, 240, 254) !important;
   margin: 10px;
   margin-left: 0;
+}
+.sign_up_here {
+  color: #02b502;
+  text-decoration: none;
+} */
+.front_page_frog {
+  height: 300px;
 }
 /* @media screen and (max-width: 1170px) {
   .user_form {
