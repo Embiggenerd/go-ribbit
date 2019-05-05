@@ -1,0 +1,51 @@
+version: '3.5'
+
+services:
+  # frontend-web:port:3000
+  # gateway-web:port:3001
+  # services-users:port:3002
+  # database-main:port:5432
+
+  front-web:
+    container_name: front-mobile
+    build:
+      context: ./frontends/mobile
+      dockerfile: Dockerfile
+    volumes:
+      - './frontends/mobile:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '19000:19000'
+      - '19001:19001'
+      - '19002:19002'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    links:
+      - gateway-mobile
+    depends_on:
+      - gateway-mobile
+
+  gateway-mobile:
+    container_name: gateway-mobile
+    build:
+      context: ./gateways/mobile
+      dockerfile: Dockerfile
+    volumes:
+      - './gateways/mobile:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+
+  database-main:
+    build: ./databases/main-dev
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
