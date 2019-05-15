@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -14,52 +15,80 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    header: null
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+        {/* <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        > */}
+          {/* <View styles={styles.contentContainer}>  */}
+            <View style={styles.welcomeContainer}>
+              <Image
+                source={require('../assets/images/frog.png')}
+                style={styles.welcomeImage}
+              />
             </View>
 
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
+            <View style={styles.getStartedContainer}>
+              <Text style={styles.getStartedText}>
+                Let people hear your song!
+              </Text>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+              {/* <View
+              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+            >
+              <MonoText style={styles.codeHighlightText}>
+                screens/HomeScreen.js
+              </MonoText>
+            </View> */}
+              <Button
+                onPress={this._handleNavToSignupPress}
+                style={styles.createButton}
+                title="CREATE AN ACCOUNT"
+              >
+                Create An Account
+              </Button>
+              <Text style={styles.developmentModeText}>
+                Already have an account? 
+                <Text
+                  onPress={this._handleNavToLoginPress}
+                  style={styles.signupLinkText}
+                >
+                    &nbsp; Log in.
+                </Text>
+              </Text>
+            </View>
+
+            {/* <View style={styles.helpContainer}>
+            <TouchableOpacity
+              onPress={this._handleHelpPress}
+              style={styles.helpLink}
+            >
+              <Text style={styles.helpLinkText}>
+                Help, it didn’t automatically reload!
+              </Text>
             </TouchableOpacity>
-          </View>
-        </ScrollView>
+          </View> */}
+          {/* </View> */}
+        {/* </ScrollView> */}
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+        {/* <View style={styles.tabBarInfoContainer}>
+          <Text style={styles.tabBarInfoText}>
+            This is a tab bar. You can edit it in:
+          </Text>
 
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
+          {/* <View
+            style={[styles.codeHighlightContainer, styles.navigationFilename]}
+          >
+            <MonoText style={styles.codeHighlightText}>
+              navigation/MainTabNavigator.js
+            </MonoText>
+          </View> *
+        </View> */}
       </View>
     );
   }
@@ -74,8 +103,8 @@ export default class HomeScreen extends React.Component {
 
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
+          Development mode is enabled, your app will be slower but you can use
+          useful development tools. {learnMoreButton}
         </Text>
       );
     } else {
@@ -87,8 +116,14 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+  _handleNavToLoginPress = () => {
+    const { navigate } = this.props.navigation;
+    navigate('Login');
+  };
+
+  _handleNavToSignupPress = () => {
+    const { navigate } = this.props.navigation;
+    navigate('Signup');
   };
 
   _handleHelpPress = () => {
@@ -100,6 +135,7 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 40,
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -108,43 +144,50 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   contentContainer: {
     paddingTop: 30,
+    
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 30
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 700,
+    height: 55,
     resizeMode: 'contain',
     marginTop: 3,
-    marginLeft: -10,
+    marginLeft: -10
+  },
+  signupLinkText: {
+    color: 'blue'
   },
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: 200
   },
   homeScreenFilename: {
-    marginVertical: 7,
+    marginVertical: 7
   },
   codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
+    color: 'rgba(96,100,109, 0.8)'
   },
   codeHighlightContainer: {
     backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 3,
-    paddingHorizontal: 4,
+    paddingHorizontal: 4
   },
   getStartedText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -156,33 +199,33 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: { height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   tabBarInfoText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   navigationFilename: {
-    marginTop: 5,
+    marginTop: 5
   },
   helpContainer: {
     marginTop: 15,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 15
   },
   helpLinkText: {
     fontSize: 14,
-    color: '#2e78b7',
-  },
+    color: '#2e78b7'
+  }
 });

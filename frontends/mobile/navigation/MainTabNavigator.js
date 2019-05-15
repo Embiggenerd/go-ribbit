@@ -53,6 +53,10 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const LoginStack = createStackNaviagor({
+  
+})
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,

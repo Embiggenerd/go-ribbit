@@ -1,12 +1,12 @@
 version: '3.5'
 
 services:
-  # frontend-web:port:3000
-  # gateway-web:port:3001
+  # frontend-web:port:19000
+  # gateway-mobile port:3001
   # services-users:port:3002
   # database-main:port:5432
 
-  front-web:
+  front-mobile:
     container_name: front-mobile
     build:
       context: ./frontends/mobile
@@ -25,6 +25,20 @@ services:
       - gateway-mobile
     depends_on:
       - gateway-mobile
+
+  service-users:
+    build: ./services/users
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@database-main:5432/maindev?sslmode=disable
+      - JWT_SECRET=changeme
+    volumes:
+      - ./services/users:/go/src/users
+    depends_on:
+      - database-main
+    links:
+      - database-main
 
   gateway-mobile:
     container_name: gateway-mobile
