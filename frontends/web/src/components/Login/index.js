@@ -14,7 +14,7 @@ const Login = ({ loginUser, handleFieldChange, userForm, history }) => {
         </Link>
       </div>
       <div className="form_box--wrapper">
-        <div className='form_box--buffer'></div>
+        <div className="form_box--buffer" />
         <div className="form_box">
           <form
             className="login_form"
@@ -59,8 +59,7 @@ const Login = ({ loginUser, handleFieldChange, userForm, history }) => {
             </p>
           </form>
         </div>
-        <div className='form_box--buffer'></div>
-
+        <div className="form_box--buffer" />
       </div>
     </div>
   );

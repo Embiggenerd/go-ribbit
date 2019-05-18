@@ -6,9 +6,7 @@ WORKDIR /usr/src/app
 # install and cache app dependencies
 COPY package.json /usr/src/app/package.json
 RUN npm install
-RUN npm install -g expo-cli
-
-
+RUN npm install -g --unsafe-perm expo-cli
 
 # multi stage build for effieciency
 FROM base AS build

@@ -13,7 +13,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './frontends/mobile:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      - 'goribbit-front-mobile-node_modules:/usr/src/app/node_modules'
     ports:
       - '19000:19000'
       - '19001:19001'
@@ -63,3 +63,6 @@ services:
       - POSTGRES_PASSWORD=postgres
     healthcheck:
       test: exit 0
+
+volumes:
+  goribbit-front-mobile-node_modules:

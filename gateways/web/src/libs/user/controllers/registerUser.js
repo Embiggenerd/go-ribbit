@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
   try {
     response = await axios.post(
       'http://service-users:3002/users/register',
-      user
+      user,
     );
     console.log("register response.data", response.data)
     res.cookie('token', response.data, config);

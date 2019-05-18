@@ -134,6 +134,9 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  createButton: {
+    color: "green"
+  },
   container: {
     padding: 40,
     flex: 1,
