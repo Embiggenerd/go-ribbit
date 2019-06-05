@@ -1,17 +1,22 @@
-import React, { Component } from 'React';
-import { UserConsumer } from '../context';
+import React from 'React';
+import { UserConsumer, ErrorConsumer } from '../context';
 import { SignupForm } from '../components';
 
 export default (SignupScreen = ({ navigation }) => {
   return (
-    <UserConsumer>
-      {({ onError, changeUserContext }) => (
-        <SignupForm
-          // user={user}
-          changeUserContext={changeUserContext}
-          navigation={navigation}
-        />
+    <ErrorConsumer>
+      {({handleError}) => (
+        <UserConsumer>
+        {({ changeUserContext }) => (
+          <SignupForm
+            changeUserContext={changeUserContext}
+            navigation={navigation}
+            handleError={handleError}
+          />
+        )}
+      </UserConsumer>
       )}
-    </UserConsumer>
+      
+    </ErrorConsumer>
   );
 });

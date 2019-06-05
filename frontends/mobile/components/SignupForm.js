@@ -41,7 +41,7 @@ export default class SignupForm extends Component {
 
   _handleSignupSubmitPress = async () => {
     try {
-      const { changeUserContext } = this.props;
+      const { changeUserContext, handleError } = this.props;
       // Send data in this.state to backend
       const response = await fetch('http://192.168.86.46:3001/users/register', {
         method: 'POST',
@@ -54,23 +54,27 @@ export default class SignupForm extends Component {
           'Content-Type': 'application/json'
         }
       });
+      
       // Clean up state
       this.setState({
         password: '',
         username: ''
       });
       const { navigate } = this.props.navigation;
-      navigate('Login');
+      
       const rez = await response.json();
+      if (!response.ok) {
+        handleError(rez.error, rez.message, rez.code)
+        return
+      }
+      navigate('Login');
+
       await AsyncStorage.setItem('userToken', rez.token);
       const hello = await AsyncStorage.getItem('userToken');
-      console.log9('getToken', hello)
       changeUserContext('userToken', rez.token);
-
-      // console.log('hhh', hello);
-      console.log('registerRespunse', response, response.data);
+      // console.log('registerRespunse', response, response.data);
     } catch (e) {
-      console.log('registerErrur', e, this.props); 
+      // console.log('registerErrur', e, this.props); 
     }
   };
 }
@@ -81,11 +85,3 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   }
 });
-
-// export default () => (
-//   <UserConsumer>
-//     {({ user, changeUserContext }) => (
-//       <SignupForm user={user} changeUserContext={changeUserContext} />
-//     )}
-//   </UserConsumer>
-// );

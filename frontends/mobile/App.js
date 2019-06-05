@@ -1,10 +1,9 @@
 import React from 'react';
-import { UserProvider } from './context';
+import { UserProvider, ErrorProviderWrapper } from './context';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import Alert from 'react-native-dropdownalert';
-import DropdownAlert from 'react-native-dropdownalert';
+import { ErrorAlert } from './components';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,9 +12,6 @@ export default class App extends React.Component {
   }
 
   state = {
-    error: '',
-    message: '',
-    code: null,
     username: '',
     userToken: null,
     authenticated: false
@@ -25,21 +21,17 @@ export default class App extends React.Component {
     console.log('appState.user onrender', this.state.user);
     return (
       <View style={styles.container}>
-        <UserProvider
-          value={{
-            user: this.state,
-            changeUserContext: this.changeUserContext,
-            onError: ({item, index}) => this.onSelect({item, index})
-          }}
-        >
-          <DropdownAlert
-            ref={ref => (this.dropdown = ref)}
-            showCancel={true}
-            onClose={data => this.onClose(data)}
-            onCancel={data => this.onCancel(data)}
-          />
-          <AppNavigator />
-        </UserProvider>
+        <ErrorProviderWrapper>
+          <ErrorAlert />
+          <UserProvider
+            value={{
+              user: this.state,
+              changeUserContext: this.changeUserContext
+            }}
+          >
+            <AppNavigator />
+          </UserProvider>
+        </ErrorProviderWrapper>
       </View>
     );
   }
@@ -55,16 +47,38 @@ export default class App extends React.Component {
     );
   }
 
-  onSelect({ item, index }) {
-    switch (item.type) {
-      case 'close':
-        this.forceClose();
-        break;
-      default:
-        const random = Math.floor(Math.random() * 1000 + 1);
-        const title = item.type + ' #' + random;
-        this.dropdown.alertWithType(item.type, title, item.message);
+  // onError({ item, index }) {
+  //   switch (item.type) {
+  //     case 'close':
+  //       this.forceClose();
+  //       break;
+  //     default:
+  //       const random = Math.floor(Math.random() * 1000 + 1);
+  //       const title = item.type + ' #' + random;
+  //       this.dropdown.alertWithType(item.type, title, item.message);
+  //   }
+  // }
+
+  onError(error) {
+    if (error) {
+      this.alertWithType(
+        'error',
+        this.state.code,
+        this.state.error,
+        this.state.message,
+        2000
+      );
     }
+
+    // switch (item.type) {
+    //   case 'close':
+    //     this.forceClose();
+    //     break;
+    //   default:
+    //     const random = Math.floor(Math.random() * 1000 + 1);
+    //     const title = item.type + ' #' + random;
+    //     this.dropdown.alertWithType(item.type, title, item.message);
+    // }
   }
 
   forceClose() {
