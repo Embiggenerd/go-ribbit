@@ -8,22 +8,22 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
-import { UserConsumer } from '../context';
+// import { UserConsumer } from '../context';
 
-export default class SignupForm extends Component {
+export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       password: '',
       username: ''
     };
-    this._handleSignupSubmitPress =this._handleSignupSubmitPress.bind(this)
+    this._handleLoginSubmitPress =this._handleLoginSubmitPress.bind(this)
   }
   render() {
     return (
       // <UserConsumer>
       //   {(user, changeUserContext) => (
-      <View style={styles.signupForm}>
+      <View style={styles.loginForm}>
         <TextInput
           placeholder="Username"
           onChangeText={text => this.setState({ username: text })}
@@ -32,18 +32,18 @@ export default class SignupForm extends Component {
           placeholder="Password"
           onChangeText={text => this.setState({ password: text })}
         />
-        <Button title="Sign Up" onPress={this._handleSignupSubmitPress} />
+        <Button title="Log In" onPress={this._handleLoginSubmitPress} />
       </View>
       //   )}
       // </UserConsumer>
     );
   }
 
-  _handleSignupSubmitPress = async () => {
+  _handleLoginSubmitPress = async () => {
     try {
-      const { changeUserContext } = this.props;
+      const { changeUserContext, navigate } = this.props;
       // Send data in this.state to backend
-      const response = await fetch('http://192.168.86.46:3001/users/register', {
+      const response = await fetch('http://192.168.86.46:3001/users/login', {
         method: 'POST',
         body: JSON.stringify({
           username: this.state.username,
@@ -54,38 +54,32 @@ export default class SignupForm extends Component {
           'Content-Type': 'application/json'
         }
       });
+      // const { navigate } = this.props.navigation;
+      const rez = await response.json();
+      await AsyncStorage.setItem('userToken', rez.token);
+      const hello = await AsyncStorage.getItem('userToken');
+      console.log('getToken', hello)
+      changeUserContext('userToken', rez.token);
+      changeUserContext('authenticated', true);
+      changeUserContext('username',this.state.username )
       // Clean up state
       this.setState({
         password: '',
         username: ''
       });
-      const { navigate } = this.props.navigation;
-      navigate('Login');
-      const rez = await response.json();
-      await AsyncStorage.setItem('userToken', rez.token);
-      const hello = await AsyncStorage.getItem('userToken');
-      console.log9('getToken', hello)
-      changeUserContext('userToken', rez.token);
+      navigate('Timeline');
 
       // console.log('hhh', hello);
-      console.log('registerRespunse', response, response.data);
+      console.log('loginRespunse', response, response.data); 
     } catch (e) {
-      console.log('registerErrur', e, this.props); 
+      console.log('loginErrur', e); 
     }
   };
 }
 
 const styles = StyleSheet.create({
-  signupForm: {
+  loginForm: {
     padding: 30,
     justifyContent: 'space-around'
   }
 });
-
-// export default () => (
-//   <UserConsumer>
-//     {({ user, changeUserContext }) => (
-//       <SignupForm user={user} changeUserContext={changeUserContext} />
-//     )}
-//   </UserConsumer>
-// );

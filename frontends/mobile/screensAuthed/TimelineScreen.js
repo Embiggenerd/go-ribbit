@@ -1,32 +1,50 @@
 import React, { Component } from 'React';
 import { UserConsumer } from '../context';
+import { Timeline } from '../components';
 
-import { Text, Button, AsyncStorage, StyleSheet, View } from 'react-native';
+// export default class TimelineScreen extends Component {
+//   render() {
+//     return (
+//       <UserConsumer>
+//         {({ user, changeUserContext }) => (
+//           <Timeline
+//             user={user}
+//             changeUserContext={changeUserContext}
 
-export default class TimelineScreen extends Component {
-  render() {
-    return (
-      <UserConsumer>
-        {({ user, changeUserContext }) => (
-          <View>
-            <Text>{user.username}+"'s TIMELINE"</Text>
-            <Button title="Logout" onPress={this._handleLogoutPress} />
-          </View>
-        )}
-      </UserConsumer>
-    );
-  }
+//           />
+//         )
+//         // <View>
+//         //   <Text>{user.username}+"'s TIMELINE"</Text>
+//         //   <Button title="Logout" onPress={this._handleLogoutPress} />
+//         // </View>
+//         }
+//       </UserConsumer>
+//     );
+//   }
+// }
 
-  _handleLogoutPress = async () => {
-    await AsyncStorage.removeItem('userToken');
-    changeState("authenticated", false)
-    changeState("userToken", null)
-  };
-}
+export default (TimelineScreen = ({ navigation }) => {
+  return (
+    <UserConsumer>
+      {({ user, changeUserContext }) => (
+        <Timeline
+          username={user.username}
+          changeUserContext={changeUserContext}
+          navigate={navigation.navigate}
+        />
+      )
+      // <View>
+      //   <Text>{user.username}+"'s TIMELINE"</Text>
+      //   <Button title="Logout" onPress={this._handleLogoutPress} />
+      // </View>
+      }
+    </UserConsumer>
+  );
+}); 
 
-const styles = StyleSheet.create({
-  logoutButton: {},
-  timelineContainer: {
-    alignItems: 'center'
-  }
-});
+// const wrapper = () => (<UserConsumer>
+//   {({ user, changeUserContext }) => ()}
+//     <UserConsumer>
+
+// )
+// export default

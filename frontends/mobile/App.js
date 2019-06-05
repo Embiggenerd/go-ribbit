@@ -3,54 +3,85 @@ import { UserProvider } from './context';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import Alert from 'react-native-dropdownalert';
+import DropdownAlert from 'react-native-dropdownalert';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.changeUserContext = this.changeUserContext.bind(this);
+  }
+
   state = {
-    isLoadingComplete: false,
-    user: {
-      username: '',
-      userToken: null,
-      authenticated: false
-    }
+    error: '',
+    message: '',
+    code: null,
+    username: '',
+    userToken: null,
+    authenticated: false
   };
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <UserProvider
-            value={{
-              user: this.state.user,
-              changeUserContext: this.changeUserContext
-            }}
-          >
-            <AppNavigator />
-          </UserProvider>
-        </View>
-      );
-    }
+    console.log('appState.user onrender', this.state.user);
+    return (
+      <View style={styles.container}>
+        <UserProvider
+          value={{
+            user: this.state,
+            changeUserContext: this.changeUserContext,
+            onError: ({item, index}) => this.onSelect({item, index})
+          }}
+        >
+          <DropdownAlert
+            ref={ref => (this.dropdown = ref)}
+            showCancel={true}
+            onClose={data => this.onClose(data)}
+            onCancel={data => this.onCancel(data)}
+          />
+          <AppNavigator />
+        </UserProvider>
+      </View>
+    );
   }
 
   changeUserContext(field, value) {
-    this.setState({
-      [field]: value
-    });
+    this.setState(
+      {
+        [field]: value
+      },
+      () => {
+        console.log('newSate', this.state);
+      }
+    );
   }
+
+  onSelect({ item, index }) {
+    switch (item.type) {
+      case 'close':
+        this.forceClose();
+        break;
+      default:
+        const random = Math.floor(Math.random() * 1000 + 1);
+        const title = item.type + ' #' + random;
+        this.dropdown.alertWithType(item.type, title, item.message);
+    }
+  }
+
+  forceClose() {
+    this.dropdown.close();
+  }
+
+  onClose(data) {
+    console.log(data);
+  }
+
+  onCancel(data) {
+    console.log(data);
+  }
+
   _loadResourcesAsync = async () => {
     return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png')
-      ]),
+      Asset.loadAsync([require('./assets/images/frog.png')]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
