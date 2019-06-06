@@ -16,7 +16,6 @@ export default (SignupScreen = ({ navigation }) => {
         )}
       </UserConsumer>
       )}
-      
     </ErrorConsumer>
   );
 });

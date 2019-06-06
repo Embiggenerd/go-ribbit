@@ -8,7 +8,6 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
-import { UserConsumer } from '../context';
 
 export default class SignupForm extends Component {
   constructor(props) {
@@ -21,8 +20,6 @@ export default class SignupForm extends Component {
   }
   render() {
     return (
-      // <UserConsumer>
-      //   {(user, changeUserContext) => (
       <View style={styles.signupForm}>
         <TextInput
           placeholder="Username"
@@ -34,14 +31,13 @@ export default class SignupForm extends Component {
         />
         <Button title="Sign Up" onPress={this._handleSignupSubmitPress} />
       </View>
-      //   )}
-      // </UserConsumer>
     );
   }
 
   _handleSignupSubmitPress = async () => {
     try {
       const { changeUserContext, handleError } = this.props;
+
       // Send data in this.state to backend
       const response = await fetch('http://192.168.86.46:3001/users/register', {
         method: 'POST',
@@ -60,6 +56,7 @@ export default class SignupForm extends Component {
         password: '',
         username: ''
       });
+      
       const { navigate } = this.props.navigation;
       
       const rez = await response.json();
@@ -70,11 +67,9 @@ export default class SignupForm extends Component {
       navigate('Login');
 
       await AsyncStorage.setItem('userToken', rez.token);
-      const hello = await AsyncStorage.getItem('userToken');
+
       changeUserContext('userToken', rez.token);
-      // console.log('registerRespunse', response, response.data);
     } catch (e) {
-      // console.log('registerErrur', e, this.props); 
     }
   };
 }

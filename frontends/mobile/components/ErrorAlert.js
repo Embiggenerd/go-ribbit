@@ -13,7 +13,6 @@ export default (ErrorAlert = () => {
         }
         return <Alert handleError={handleError} error={error.error} message={error.message} code={error.code} />
       }}
-      
     </ErrorConsumer>
   );
 });

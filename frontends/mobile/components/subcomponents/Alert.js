@@ -14,7 +14,7 @@ export default class Alert extends React.Component {
   }
 
   renderAlert() {
-    const { error, message, code } = this.props;
+    const { message, code } = this.props;
     this.dropdown.alertWithType('error', message, code, {}, 2000);
   }
 

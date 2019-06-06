@@ -8,7 +8,6 @@ import {
   Button,
   AsyncStorage
 } from 'react-native';
-// import { UserConsumer } from '../context';
 
 export default class LoginForm extends Component {
   constructor(props) {
@@ -21,8 +20,6 @@ export default class LoginForm extends Component {
   }
   render() {
     return (
-      // <UserConsumer>
-      //   {(user, changeUserContext) => (
       <View style={styles.loginForm}>
         <TextInput
           placeholder="Username"
@@ -34,14 +31,12 @@ export default class LoginForm extends Component {
         />
         <Button title="Log In" onPress={this._handleLoginSubmitPress} />
       </View>
-      //   )}
-      // </UserConsumer>
     );
   }
 
   _handleLoginSubmitPress = async () => {
     try {
-      const { changeUserContext, navigate } = this.props;
+      const { changeUserContext, navigate, handleError } = this.props;
       // Send data in this.state to backend
       const response = await fetch('http://192.168.86.46:3001/users/login', {
         method: 'POST',
@@ -54,14 +49,20 @@ export default class LoginForm extends Component {
           'Content-Type': 'application/json'
         }
       });
-      // const { navigate } = this.props.navigation;
       const rez = await response.json();
+
+      if(!response.ok){
+        handleError(rez.error, rez.message, rez.code)
+        return
+      }
       await AsyncStorage.setItem('userToken', rez.token);
+
       const hello = await AsyncStorage.getItem('userToken');
-      console.log('getToken', hello)
+
       changeUserContext('userToken', rez.token);
       changeUserContext('authenticated', true);
       changeUserContext('username',this.state.username )
+      
       // Clean up state
       this.setState({
         password: '',
@@ -69,8 +70,6 @@ export default class LoginForm extends Component {
       });
       navigate('Timeline');
 
-      // console.log('hhh', hello);
-      console.log('loginRespunse', response, response.data); 
     } catch (e) {
       console.log('loginErrur', e); 
     }
