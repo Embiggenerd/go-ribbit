@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   try{
     const response = await axios.post("http://service-users:3002/users/login", user)
     console.log("backend login response.data", response.data)
-    res.cookie('token', response.data)
+    // res.cookie('token', response.data)
     res.json(response.data)
   } catch(e) {
     console.log("login req e", e)

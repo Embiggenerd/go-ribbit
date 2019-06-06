@@ -1,30 +1,30 @@
 version: '3.5'
 
 services:
-  # frontend-web:port:19000
+  # frontend-mobile:port:19000
   # gateway-mobile port:3001
   # services-users:port:3002
   # database-main:port:5432
 
-  front-mobile:
-    container_name: front-mobile
-    build:
-      context: ./frontends/mobile
-      dockerfile: Dockerfile
-    volumes:
-      - './frontends/mobile:/usr/src/app'
-      - 'goribbit-front-mobile-node_modules:/usr/src/app/node_modules'
-    ports:
-      - '19000:19000'
-      - '19001:19001'
-      - '19002:19002'
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-    links:
-      - gateway-mobile
-    depends_on:
-      - gateway-mobile
+  # front-mobile:
+  #   container_name: front-mobile
+  #   build:
+  #     context: ./frontends/mobile
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - './frontends/mobile:/usr/src/app'
+  #     - 'goribbit-front-mobile-node_modules:/usr/src/app/node_modules'
+  #   ports:
+  #     - '19000:19000'
+  #     - '19001:19001'
+  #     - '19002:19002'
+  #   environment:
+  #     - NODE_ENV=development
+  #     - CHOKIDAR_USEPOLLING=true
+  #   links:
+  #     - gateway-mobile
+  #   depends_on:
+  #     - gateway-mobile
 
   service-users:
     build: ./services/users

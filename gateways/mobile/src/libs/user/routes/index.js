@@ -11,7 +11,7 @@ const {
 
 module.exports = class Routes {
   route(App) {
-    App.route("/web/ping").get(ping);
+    App.route("/mobile/ping").get(ping);
     App.route("/users/authReq").get(authReq)
     App.route("/users/getUserByUsername").post(getUserByUsername)
     App.route("/users/register").post(registerUser)

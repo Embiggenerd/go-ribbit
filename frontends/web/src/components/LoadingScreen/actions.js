@@ -17,6 +17,7 @@ export const authUser = () => {
         type: LOAD_USER,
         user: res.data
       });
+      
     } catch (e) {
       console.log('authUser e', e);
     } finally {

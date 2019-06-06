@@ -5,7 +5,7 @@ const axios = require("axios")
 // user info back to gateway via json. If user lacks required cookie, we directly
 // send back an appropriate error message with 401 code
 module.exports = async (req, res, next) => {
-  // console.log("req.cookies", req.cookies)
+  console.log("req.cookies", req.cookies)
   const token = typeof req.cookies.token !== "undefined" ? req.cookies.token : null
 
   if (!token) {
