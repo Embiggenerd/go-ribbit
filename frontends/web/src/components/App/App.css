@@ -1,6 +1,7 @@
 @import "../Login/loginStyles.css";
-@import "../UnauthedIndex/UnauthedIndex.css";
-@import "../Modals/ErrorModal.css";
+@import "../UnauthedIndex/unauthedIndexStyles.css";
+@import "../Modals/modalStyles.css";
+@import "../Register/registerStyles.css";
 
 html,
 body,
@@ -17,37 +18,8 @@ body,
   box-sizing: border-box;
 }
 
-
-
-
-.layout{
-  display: flex;
-}
-
 .body {
   background: steelblue;
   color: white;
 }
-
-
-.layout {
-  z-index: -1;
-  min-width: 930px;
-  min-height: 600px;
-  border: solid 5px white;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 450px;
-}
-
-.login_form {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-} 
-
 

@@ -1,3 +1,17 @@
+.layout {
+  display:flex;
+  z-index: -1;
+  min-width: 930px;
+  min-height: 600px;
+  border: solid 5px white;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 450px;
+}
+
 .login_button {
   width: 350px;
   border: solid 2px limegreen;
