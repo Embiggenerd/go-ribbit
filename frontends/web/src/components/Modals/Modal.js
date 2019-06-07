@@ -3,7 +3,7 @@ import React from 'react';
 const Modal = ({ code, message, onClose }) => {
   return (
     <div
-      className={message ? 'click_catcher--open' : 'click_catcher'}
+      className={message ? 'click_catcher click_catcher--open' : 'click_catcher'}
       onClick={onClose}
     >
       <div className="modal" data-test-id="modal">

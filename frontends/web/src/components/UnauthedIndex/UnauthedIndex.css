@@ -1,0 +1,117 @@
+.login_button {
+  width: 350px;
+  border: solid 2px limegreen;
+  border-radius: 100px;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  background: limegreen;
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.signup_button {
+  width: 350px;
+  border: solid 2px limegreen;
+  border-radius: 100px;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  background: white;
+  color: limegreen;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.unauthed_bar {
+  z-index: 0;
+}
+
+.bar {
+  background: #00e300;
+  height: 278px;
+  width: 100%;
+}
+
+.bar_and_frog {
+  width: 100%;
+  display: flex;
+  min-width: 500px;
+  max-width: 850px;
+  align-items: baseline;
+}
+
+.join_statement--heavy {
+  margin-top: -30px;
+  margin-bottom: 50px;
+  width: 350px;
+}
+
+.join_statement {
+  margin-bottom: 16px;
+  width: 350px;
+}
+
+.logo_and_signin {
+  height: 90px;
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: -10px;
+}
+
+.little_frog {
+  height: 45%;
+  width: 45%;
+}
+
+.little_login {
+  width: 100px;
+  height: 40px;
+  border: solid 2px limegreen;
+  border-radius: 100px;
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  background: white;
+  color: limegreen;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.hype {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 278px;
+  width: 378px;
+  margin-top: -278px;
+  color: white;
+}
+
+.front_page_frog {
+  height: 300px;
+}
+

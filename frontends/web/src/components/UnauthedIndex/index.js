@@ -15,7 +15,7 @@ const UnauthedIndex = () => {
           Log In
         </Link>
       </div>
-      <h2 className="join_statement">
+      <h2 className="join_statement--heavy">
         Somewhere, someone's song is being heard, and yours isn't
       </h2>
       <h3 className="join_statement">Join Go Ribbit Today</h3>
