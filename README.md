@@ -18,6 +18,11 @@ This is using heroku's free tier, so the dyno may be asleep. Give it 10 seconds 
 
 ## Demonstrates
 * Understanding of user behavior in social networks.
-* React, redux, react-router.
-* OAuth is used for authentication, and email data from google is used to send emails when a user comments on your post.
+* React, redux, react-router, react-native.
 * Implementation of stripe's test app to purchase usable in-app currency.
+* The role of gateways in micro services.
+* The importance of using a performant language for services.
+* How to test micro services.
+* Difference between production and dev docker files.
+* Serving static files with nginx reverse proxy.
+* CI/CD with Jenkins with minimal third party plugins by leveraging bash scripts.
