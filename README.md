@@ -10,12 +10,6 @@ A containerized, micro services version of ribbit.
 * Ribbits are essentially dislikes that have a negative impact on a user's competition, and must be earned or bought.
 * Credits can be transfered from user to user.
 
-## Visit App
-
-[Ribbit](https://cryptic-chamber-20731.herokuapp.com/)
-
-This is using heroku's free tier, so the dyno may be asleep. Give it 10 seconds to startup if you don't see anything.
-
 ## Demonstrates
 * Understanding of user behavior in social networks.
 * React, redux, react-router, react-native.
