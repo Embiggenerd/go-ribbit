@@ -1,6 +1,6 @@
 # go-ribbit
 
-A containerized, micro services version of ribbit. 
+A containerized, micro services user authenrication. Just a learning experiment, not presented as a full fledged app. To use, clone the repo, and run docker-compose -f docker-compose-prod.yml up. Uses port 80.
 
 ## In Detail
 * React with React router, redux, and react-native are used for front end
@@ -17,3 +17,4 @@ A containerized, micro services version of ribbit.
 * Difference between production and dev docker files.
 * Serving static files with nginx reverse proxy.
 * CI/CD with Jenkins with minimal third party plugins by leveraging bash scripts.
+* Using node as a gateway with services written in go.
