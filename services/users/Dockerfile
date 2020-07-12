@@ -20,7 +20,6 @@ RUN go mod download
 # download 3rd party package for recompiling on change
 RUN go get github.com/githubnemo/CompileDaemon
 
-
 # This image builds the server
 FROM base AS builder
 
